@@ -1,11 +1,13 @@
 // import Vue from 'vue'
 import LayerPopupGroup from './components/LayerPopupGroup.vue'
+import LayerPopup from './components/LayerPopup.vue'
 
 // Declare install function executed by Vue.use()
 export function install(Vue) {
 	if (install.installed) return;
     install.installed = true;
   Vue.component('LayerPopupGroup', LayerPopupGroup);
+  Vue.component('LayerPopup', LayerPopup);
 }
 
 // Create module definition for Vue.use()
@@ -25,4 +27,4 @@ if (GlobalVue) {
 }
 
 // To allow use as module (npm/webpack/etc.) export component
-export default LayerPopupGroup;
+export default {LayerPopupGroup, LayerPopup};
