@@ -1,0 +1,63 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  ci:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [14]
+
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@master
+
+      - name: Setup node env 🏗
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ matrix.node }}
+          check-latest: true
+
+      - name: Cache node_modules 📦
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies 👨🏻‍💻
+        run: npm ci
+
+      - name: Run build
+        run: npm run build
+
+      # git config로 이메일과 이름을 설정한다. 그 값들은 github context에서 가져온다.
+      - name: git config
+        env:
+          USER_NAME: ${{ github.event.pusher.name }}
+          USER_EMAIL: ${{ github.event.pusher.email }}
+        run: |
+          git config --global user.email "$USER_EMAIL"
+          git config --global user.name "$USER_NAME"
+
+      # deploy 브랜치로 checkout
+      # git pull origin deploy --allow-unrelated-histories
+      - name: checkout deploy branch
+        run: |
+          git checkout -b deploy
+
+      # 기존 deploy 원격 브랜치 삭제 및 
+      # 커밋 내용은 제일 최근 커밋 메시지
+      # git push origin --delete deploy
+      - name: push changed files
+        run: |
+          git add .
+          git commit -m "$(git -C ../new-skylife_components/ log --format=%B -n 1)"
+          git push origin deploy
