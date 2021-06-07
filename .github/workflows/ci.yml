@@ -47,18 +47,18 @@ jobs:
           git config --global user.email "$USER_EMAIL"
           git config --global user.name "$USER_NAME"
 
-      # # deploy 브랜치로 checkout
-      # # git pull origin deploy --allow-unrelated-histories
-      # - name: checkout deploy branch
-      #   run: |
-      #     git checkout -b deploy
+      # deploy 브랜치로 checkout
+      # git pull origin deploy --allow-unrelated-histories
+      - name: checkout deploy branch
+        run: |
+          git checkout -b deploy
           
 
       # 기존 deploy 원격 브랜치 삭제 및 
       # 커밋 내용은 제일 최근 커밋 메시지
       # git push origin --delete deploy
-      # - name: push changed files
-      #   run: |
-      #     git add .
-      #     git commit -m "$(git -C ../new-skylife_components/ log --format=%B -n 1)"
-      #     git push origin deploy
+      - name: push changed files
+        run: |
+          git add .
+          git commit -m "$(git -C ../components_test/ log --format=%B -n 1)"
+          git push origin deploy
