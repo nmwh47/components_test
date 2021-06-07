@@ -56,9 +56,9 @@ jobs:
 
       # 기존 deploy 원격 브랜치 삭제 및 
       # 커밋 내용은 제일 최근 커밋 메시지
-      # git push origin --delete deploy
       - name: push changed files
         run: |
+          git push origin --delete deploy
           git add .
           git commit -m "$(git -C ../components_test/ log --format=%B -n 1)"
           git push origin deploy
