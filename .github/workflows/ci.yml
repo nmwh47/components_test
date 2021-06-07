@@ -52,6 +52,7 @@ jobs:
       - name: checkout deploy branch
         run: |
           git checkout -b deploy
+          git merge master
 
       # 기존 deploy 원격 브랜치 삭제 및 
       # 커밋 내용은 제일 최근 커밋 메시지
@@ -59,5 +60,5 @@ jobs:
       - name: push changed files
         run: |
           git add .
-          git commit -m "."
+          git commit -m "$(git -C ../new-skylife_components/ log --format=%B -n 1)"
           git push origin deploy
