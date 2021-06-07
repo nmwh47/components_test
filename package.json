@@ -2,8 +2,9 @@
   "name": "new-skylife_components",
   "version": "0.1.0",
   "private": true,
+  "main": "./dist/new-skylife_components.common.js",
   "scripts": {
-    "build": "vue-cli-service build --target lib --name new-skylife_modules src/main.js"
+    "build": "vue-cli-service build --target lib --name new-skylife_components src/index.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
