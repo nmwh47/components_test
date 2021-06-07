@@ -1,10 +1,10 @@
 {
-  "name": "new-skylife_components",
+  "name": "components_test",
   "version": "0.1.0",
   "private": true,
-  "main": "./dist/new-skylife_components.common.js",
+  "main": "./dist/components_test.common.js",
   "scripts": {
-    "build": "vue-cli-service build --target lib --name new-skylife_components src/index.js"
+    "build": "vue-cli-service build --target lib --name components_test src/index.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
